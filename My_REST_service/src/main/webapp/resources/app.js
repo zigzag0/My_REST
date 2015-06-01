@@ -11,7 +11,7 @@ this.print_out_year;
 function get_books()
 {
 
- 
+
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -32,7 +32,7 @@ $.ajax({
 function get_book(id)
 {
 
- 
+
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -53,13 +53,13 @@ $.ajax({
 
 function save_book()
 {
-	
+
 	book_from_server.book_name=document.forms[0].book_name.value;
 	book_from_server.book_author=document.forms[0].book_author.value;
 	book_from_server.pages_total=document.forms[0].pages_total.value;
 	book_from_server.print_out_year=document.forms[0].print_out_year.value;
-		
-var jsonData = JSON.stringify(book_from_server); 
+
+var jsonData = JSON.stringify(book_from_server);
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -79,15 +79,15 @@ $.ajax({
 }
 
 
-function add_car()
+function add_book()
 {
 	var car_to_server = new Book();
 	car_to_server.book_name=document.forms[0].new_car_make.value;
 	car_to_server.book_author=document.forms[0].new_car_model.value;
 	car_to_server.pages_total=document.forms[0].new_car_series.value;
 	car_to_server.print_out_year=document.forms[0].new_car_year.value;
-		
-var jsonData = JSON.stringify(car_to_server); 
+
+var jsonData = JSON.stringify(car_to_server);
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -119,9 +119,9 @@ function display_book(book)
 		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_car()'>Kustuta</button></td></tr>";
 		out_data = out_data + "</table>";
 
-	
 
-	
+
+
 	 $("#one_book").html(out_data);
 }
 
@@ -137,17 +137,17 @@ function display_books(data)
 		out_data = out_data + "<tr><td>Nimetus:</td><td>" + book.book_name + "</td><td>autor:</td><td>" + book.book_author + "</td>";
 		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_book(" + book.id + ")'>Vali</button></td></tr>";
 		out_data = out_data + "</table>";
-		
-	 }
-	
 
-	
+	 }
+
+
+
 	 $("#books_table").html(out_data);
 }
 
 
 function show_message(message)
 {
-	
+
 	 $("#msg_text").html(message);
 }
