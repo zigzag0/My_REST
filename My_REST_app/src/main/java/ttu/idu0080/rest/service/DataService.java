@@ -18,11 +18,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.transaction.annotation.Propagation;
 
 import javax.persistence.EntityTransaction;
+
 @Repository
-public class DataService  {
-
-
-
+public class DataService {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,65 +29,47 @@ public class DataService  {
 		this.em = em;
 	}
 
-
-	public Book getBookById(long id)  {
-
+	public Book getBookById(long id) {
 
 		Book node = null;
 		try {
 
-
-			Query q =  em
-					.createQuery(
-							"select c from Book c where c.id = :id")
-							.setParameter("id", id);
+			Query q = em.createQuery("select c from Book c where c.id = :id")
+					.setParameter("id", id);
 			node = (Book) q.getSingleResult();
-
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.getBookById():"+ ex.getMessage());
-		
+		catch (Exception ex) {
+			System.out.println("DataService.getBookById():" + ex.getMessage());
+
 		}
 
 		return node;
 	}
-
-
-	
-	
-	
-	public List<Book> getAllBooks()  {
-
+///////////////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public List<Book> getAllBooks() {
 
 		List<Book> book_list = null;
 		try {
 
-
-			Query q =  em
-					.createQuery(
-							"select c from Book c ");
-			book_list = (List<Book>)  q.getResultList();
-
+			Query q = em.createQuery("select c from Book c ");
+			book_list = (List<Book>) q.getResultList();
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.getAllBooks():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.getAllBooks():" + ex.getMessage());
 		}
 
 		return book_list;
 	}
 
-	
-	
-	public Book update(Book book)  {
+	public Book update(Book book) {
 
-
-		System.out.println("book update , book book_author: " + book.getBook_author());
+		System.out.println("book update, book book_author: "
+				+ book.getBook_author());
 		try {
 
 			em.merge(book);
@@ -97,77 +77,71 @@ public class DataService  {
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.update():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.update():" + ex.getMessage());
 		}
 
 		return book;
 	}
 
-	
 	public Book save(Book book) {
 
-		System.out.println("new book insert , book book_author: " + book.getBook_author());
+		System.out.println("new book insert , book book_author: "
+				+ book.getBook_author());
 
 		try {
-			
-			em.persist(book);
 
+			em.persist(book);
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.save():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.save():" + ex.getMessage());
 		}
 
 		return book;
 	}
-	
+
 	public void delete(long id) {
 
 		System.out.println("DELETE ");
 
 		try {
-			
-	          Book book =  em.find(Book.class,id);
-	          em.remove(book);
 
+			Book book = em.find(Book.class, id);
+			em.remove(book);
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.delete():"+ ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.delete():" + ex.getMessage());
 		}
-
 
 	}
-	
-	public  List<Book> searchByBook_author(String s_book_author)  {
 
+	// //////////////////////////////////
+	@SuppressWarnings("unchecked")
+	public List<Book> searchByBook_author(String s_book_author) {
 		List<Book> books = null;
 
 		try {
 
 			String sql = "from Book c where upper(c.book_author) like upper(:book_author) order by c.book_name";
-            
-			Query q = em.createQuery(sql);	
-			q.setParameter("book_author", s_book_author+"%") ;                  
-			books =  (List<Book>) q.getResultList();	 				
-                        System.out.println("Otsingu tulemusi:" + books.size());
+
+			Query q = em.createQuery(sql);
+			q.setParameter("book_author", s_book_author + "%");
+			books = (List<Book>) q.getResultList();
+			System.out.println("Otsingu tulemusi:" + books.size());
 
 		}
 
-		catch(Exception ex)
-		{
-			System.out.println("DataService.searchByBook_author():" + ex.getMessage());
+		catch (Exception ex) {
+			System.out.println("DataService.searchByBook_author():"
+					+ ex.getMessage());
 
 		}
 
 		return books;
 	}
-	
-	
+
 }

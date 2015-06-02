@@ -28,7 +28,7 @@ import ttu.idu0080.rest.data.*;
 
 @Controller
 public class RESTController {
-	
+
 	@Autowired
 	private DataService dataService;
 	@Autowired
@@ -36,34 +36,58 @@ public class RESTController {
 
 	@RequestMapping(value="/service/books",method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Book> getBooks(HttpServletResponse response) throws IOException{
-		
+
 		List<Book> books = dataService.getAllBooks();
 		return books;
 	}
-	
+
 	@RequestMapping(value="/service/book/{id}",method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Book getBook(@PathVariable int id) throws IOException{
-		
+
 		Book book = dataService.getBookById(id);
 		return book;
 	}
-	
+/*	Tagavara
 	@Transactional
 	@RequestMapping(value = "/service/book/{id}", method=RequestMethod.POST)
 	public @ResponseBody void updateBook(@RequestBody Book book)
 	{
 		dataService.update(book);
-		
+*/
+	@Transactional
+	@RequestMapping(value="/service/book/{id}",method = RequestMethod.DELETE, produces = "application/json")
+	public @ResponseBody void deleteBook(@PathVariable int id) throws IOException{
+
+		System.out.println("DELETEContr");
+		dataService.delete(id);
 	}
-	
-	
-	
+
+	@Transactional
+	@RequestMapping(value="/service/book/",method = RequestMethod.PUT, produces = "application/json")
+	public @ResponseBody void addBook(@RequestBody Book book) throws IOException{
+
+		System.out.println("ADDController");
+		dataService.save(book);
+	}
+
+	@Transactional
+	@RequestMapping(value = "/service/book/{id}", method=RequestMethod.POST)
+	public @ResponseBody void updateBook(@RequestBody Book book)
+	{
+		dataService.update(book);
+	}
+
+
 	@RequestMapping(value="/service/external/books",method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Book> getExternalBooks(HttpServletResponse response) throws IOException{
 		List<Book> books = restDataService.getAllBooks();
 		return books;
 	}
-	
 
-	
+	@RequestMapping(value="/service/search/")
+	public @ResponseBody List<Book> getSearchByAutorResult(@RequestParam("autor:") String book_author){
+		List<Book> books = dataService.searchByBook_author(book_author);
+		return books;
+	}
+
 }

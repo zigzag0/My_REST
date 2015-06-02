@@ -81,13 +81,13 @@ $.ajax({
 
 function add_book()
 {
-	var book_to_server = new Book();
-	book_to_server.book_name=document.forms[0].new_book_book_name.value;
-	book_to_server.book_author=document.forms[0].new_book_book_author.value;
-	book_to_server.pages_total=document.forms[0].new_book_pages_total.value;
-	book_to_server.print_out_year=document.forms[0].new_book_print_out_year.value;
+	var car_to_server = new Book();
+	car_to_server.book_name=document.forms[0].new_car_make.value;
+	car_to_server.book_author=document.forms[0].new_car_model.value;
+	car_to_server.pages_total=document.forms[0].new_car_series.value;
+	car_to_server.print_out_year=document.forms[0].new_car_year.value;
 
-var jsonData = JSON.stringify(book_to_server);
+var jsonData = JSON.stringify(car_to_server);
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -111,7 +111,7 @@ function display_book(book)
 	 var out_data="";
 	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Raamatu id: <b>" + book.id + "</b></td></tr>";
 
-		out_data = out_data + "<tr><td>Pealkiri:</td><td><input type=text name=book_name value='" + book.book_name + "'></td></tr>";
+		out_data = out_data + "<tr><td>Nimetus:</td><td><input type=text name=book_name value='" + book.book_name + "'></td></tr>";
 		out_data = out_data + "<tr><td>Autor:</td><td><input type=text name=book_author value='" + book.book_author + "'></td></tr>";
 		out_data = out_data + "<tr><td>Lehekülgi:</td><td><input type=text name=pages_total value='" + book.pages_total + "'></td></tr>";
 		out_data = out_data + "<tr><td>Väljatrüki aasta:</td><td><input type=text name=print_out_year value='" + book.print_out_year + "'></td></tr>";
@@ -131,10 +131,10 @@ function display_book(book)
 function display_books(data)
 {
 	var out_data="";
-	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Raamatuid, kokku: <b>" + data.length + "</b></td></tr>";
+	 out_data = out_data + "<table bgcolor=eeeeee><tr><td>Autod, kokku: <b>" + data.length + "</b></td></tr>";
 	 for(var  i in data) {
    	  var book = data[i];
-		out_data = out_data + "<tr><td>Pealkiri:</td><td>" + book.book_name + "</td><td>Autor</td><td>" + book.book_author + "</td>";
+		out_data = out_data + "<tr><td>Nimetus:</td><td>" + book.book_name + "</td><td>autor:</td><td>" + book.book_author + "</td>";
 		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_book(" + book.id + ")'>Vali</button></td></tr>";
 		out_data = out_data + "</table>";
 

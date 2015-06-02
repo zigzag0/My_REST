@@ -13,10 +13,10 @@ public class RESTDataService  {
 
 
 
-	
-	
+
+
 	public List<Book> getAllBooks()  {
-		
+
 		Book[] book_array = null;
 		try
 		{
@@ -26,14 +26,14 @@ public class RESTDataService  {
 		}
 		catch(Exception ex)
 		{
-			System.out.println("RESTDataService.getAllBooks():"+ ex.getMessage());
+			System.out.println("restDataService.getAllBooks():"+ ex.getMessage());
 		}
 
 		List<Book> book_list= Arrays.asList(book_array);
 		return book_list;
 	}
 
-	
-	
-	
+
+
+
 }
