@@ -35,9 +35,22 @@ public class RESTController {
 	private RESTDataService restDataService;
 
 	@RequestMapping(value="/service/books",method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Book> getBooks(HttpServletResponse response) throws IOException{
+	public @ResponseBody List<Book> getBooks() throws IOException{
 
-		List<Book> books = dataService.getAllBooks();
+
+		List<Book> books = dataService.getAllBooks(null);
+		return books;
+	}
+
+
+
+
+
+	@RequestMapping(value="/service/books/{search}",method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Book> getBooks(@PathVariable String search) throws IOException{
+
+		System.out.println(search);
+		List<Book> books = dataService.getAllBooks(search);
 		return books;
 	}
 

@@ -49,12 +49,17 @@ public class DataService {
 	}
 ///////////////////////////////////////////
 	@SuppressWarnings("unchecked")
-	public List<Book> getAllBooks() {
+	public List<Book> getAllBooks(String search) {
 
 		List<Book> book_list = null;
 		try {
 
-			Query q = em.createQuery("select c from Book c ");
+			Query q;
+			if(search == null) {
+			    q = em.createQuery("select c from Book c");
+			} else {
+			    q = em.createQuery("select c from Book c where lower(c.book_name) like lower('%"+ search +"%')");
+			}
 			book_list = (List<Book>) q.getResultList();
 
 		}
@@ -143,5 +148,8 @@ public class DataService {
 
 		return books;
 	}
+
+
+
 
 }

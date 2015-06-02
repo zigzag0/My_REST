@@ -8,14 +8,22 @@ this.pages_total;
 this.print_out_year;
 }
 
-function get_books()
+
+function search_books(){
+	get_books(document.forms[0].search.value);
+
+}
+
+function get_books(search)
 {
 
+if (!search)
+	search="";
 
 $.ajaxSetup({ cache: false });
 $.ajax({
 
-    url: 'service/books' ,
+    url: 'service/books/'+search ,
     type: "GET",
     dataType: 'json',
     success: function(data) {
@@ -104,12 +112,14 @@ $.ajax({
 function add_book()
 {
 	var book_to_server = new Book();
-	book_to_server.book_name=document.forms[0].new_book_book_name.value;
-	book_to_server.book_author=document.forms[0].new_book_book_author.value;
-	book_to_server.pages_total=document.forms[0].new_book_pages_total.value;
-	book_to_server.print_out_year=document.forms[0].new_book_print_out_year.value;
+	book_to_server.book_name=document.forms[0].new_book_name.value;
+	book_to_server.book_author=document.forms[0].new_book_author.value;
+	book_to_server.pages_total=document.forms[0].new_pages_total.value;
+	book_to_server.print_out_year=document.forms[0].new_print_out_year.value;
 
 var jsonData = JSON.stringify(book_to_server);
+alert(jsonData);
+
 $.ajaxSetup({ cache: false });
 $.ajax({
 
@@ -160,6 +170,8 @@ function display_books(data)
    	  var book = data[i];
 		out_data = out_data + "<tr><td>Pealkiri:</td><td bgcolor=ffffff>" + book.book_name + "</td><td>Autor:</td><td bgcolor=ffffff>" + book.book_author + "</td>";
 		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:get_book(" + book.id + ")'>Vali</button></td>";
+		out_data = out_data + "<td><button type='button' class='btn'  onClick='javascript:delete_book(" + book.id + ")'>DELETE</button></td>";
+
 
 	 }
 	 out_data = out_data + "</table>";

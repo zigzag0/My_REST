@@ -16,6 +16,7 @@
 	<h1>REST World!</h1>
 	<a href=${uri}>Raamatud.</a>
 	<form>
+
 		<input type=button value="Koik raamatud"
 			onClick="javascript:get_books()"> <br>
 		<br>
@@ -58,9 +59,15 @@
 					onClick='javascript:add_book()'>Salvesta DB-se.</button></td>
 		</table>
 		<br>
+		<input type="text" name="search">
+				<input type=button value="Otsing"
+			onClick="javascript:search_books()">
+			<br>
+
 		<br>
 
 	</form>
+
 
 </body>
 </html>
